@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#e5e4e0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración – Brote</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+<main class="contenedor admin">
+  <span class="etiqueta">Administración</span>
+  <h1>Pedidos de Brote</h1>
+  <form id="f-clave" style="grid-template-columns:1fr auto;align-items:end;margin:46px 0 30px">
+    <input type="password" id="clave" placeholder="Clave de administrador" required>
+    <button class="btn" type="submit">Entrar</button>
+  </form>
+  <div id="msg"></div>
+  <div class="tabla">
+    <table id="tabla" hidden>
+      <thead><tr><th>Folio</th><th>Cliente</th><th>Correo</th><th>Envío</th><th>Kits</th><th>Total</th><th>Pago</th><th>Estado</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+const ESTADOS = ["Recibido", "Preparando", "Enviado", "Entregado", "Cancelado"];
+const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+let clave = "";
+
+async function cargar() {
+  const r = await fetch("/api/admin/pedidos", { headers: { "x-admin-key": clave } });
+  if (!r.ok) { $("#msg").className = "error"; $("#msg").textContent = "Clave incorrecta"; return; }
+  const filas = await r.json();
+  $("#msg").className = "ok";
+  $("#msg").textContent = `${filas.length} pedido(s)`;
+  $("#tabla").hidden = false;
+  $("#tabla tbody").innerHTML = filas.map((p) => `
+    <tr>
+      <td>${esc(p.Folio)}</td><td>${esc(p.Nombre)}<br><small>${esc(p.Telefono)}</small></td>
+      <td>${esc(p.Correo)}</td><td>${esc(p.Direccion)}</td>
+      <td>${p.Cantidad}</td><td>$${p.Total}</td><td>${esc(p.Pago)}</td>
+      <td><select data-id="${p.IdPedido}">
+        ${ESTADOS.map((s) => `<option${s === p.Estado ? " selected" : ""}>${s}</option>`).join("")}
+      </select></td>
+    </tr>`).join("");
+}
+
+$("#f-clave").onsubmit = (e) => { e.preventDefault(); clave = $("#clave").value; cargar(); };
+
+$("#tabla").onchange = async (e) => {
+  if (!e.target.matches("select")) return;
+  await fetch(`/api/admin/pedidos/${e.target.dataset.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", "x-admin-key": clave },
+    body: JSON.stringify({ estado: e.target.value }),
+  });
+};
+</script>
+</body>
+</html>

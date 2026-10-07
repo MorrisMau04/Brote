@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brote – Microhuerto para tu cocina</title>
+  <meta name="description" content="Kit de microhuerto con semillas, sustrato y maceta biodegradable. Compra en línea y recibe tus primeras hojas en semanas.">
+  <meta name="theme-color" content="#e5e4e0">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+<a id="scroll" class="scroll" href="#proyecto">Scroll ↓</a>
+<header>
+  <div class="contenedor barra">
+    <a class="logo" href="#inicio"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1d1d1d" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="5.5"/></svg>Brote.</a>
+    <button id="menu" aria-label="Abrir menú">☰</button>
+    <nav id="nav">
+      <ul>
+        <li><a href="#proyecto">Proyecto</a></li>
+        <li><a href="#producto">El kit</a></li>
+        <li><a href="#video">Video</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#comprar">Comprar</a></li>
+        <li><a href="#seguimiento">Mi pedido</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="esfera" aria-hidden="true"></div>
+    <div class="contenedor">
+      <span class="etiqueta">Brote. — Microhuerto para tu cocina</span>
+        <h1>Cultiva tus propias hierbas, aunque no tengas jardín</h1>
+        <p>Brote es un kit listo para sembrar en tu cocina o ventana. Lo pides en línea y llega a tu casa con todo lo necesario.</p>
+        <p><a class="btn" href="#comprar">Pedir mi kit</a> <button id="instalar" class="btn" hidden>Instalar app</button></p>
+    </div>
+  </section>
+
+  <section id="proyecto">
+    <div class="contenedor dos">
+      <div>
+        <span class="etiqueta">Proyecto</span>
+        <h2>Nuestro proyecto</h2>
+      </div>
+      <div>
+        <p>Somos un equipo de estudiantes que quiere acercar el cultivo casero a la vida diaria en la ciudad. Muchas personas viven en departamentos sin espacio, así que diseñamos un kit compacto, biodegradable y fácil de usar.</p>
+        <p>Cada kit incluye una guía paso a paso para que la primera cosecha salga bien, sin experiencia previa.</p>
+        <div class="tarjeta">
+          <h3>Nuestra misión</h3>
+          <p>Que cocinar con ingredientes frescos y cultivados por ti sea algo sencillo, económico y sostenible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="producto" class="claro">
+    <div class="contenedor">
+      <span class="etiqueta">El kit</span>
+      <h2>El kit Brote</h2>
+      <div class="tarjetas">
+        <div class="tarjeta"><h3>🪴 Maceta</h3><p>Fibra de coco biodegradable, se puede plantar directo en tierra.</p></div>
+        <div class="tarjeta"><h3>🌿 Semillas</h3><p>Albahaca, cilantro y hierbabuena.</p></div>
+        <div class="tarjeta"><h3>🟤 Sustrato</h3><p>Mezcla lista para sembrar, sin complicaciones.</p></div>
+        <div class="tarjeta"><h3>📖 Guía</h3><p>Instrucciones de siembra y riego paso a paso.</p></div>
+      </div>
+      <p class="precio">Precio por kit: <strong id="precio">$349.00</strong></p>
+    </div>
+  </section>
+
+  <section id="video">
+    <div class="contenedor">
+      <span class="etiqueta">Video</span>
+      <h2>Míralo en acción</h2>
+      <!-- Pon tu archivo en public/video/brote.mp4 (y opcional public/img/video-portada.jpg) -->
+      <video class="video" controls preload="metadata" playsinline poster="img/video-portada.jpg">
+        <source src="video/brote.mp4" type="video/mp4">
+        Tu navegador no puede reproducir este video.
+      </video>
+    </div>
+  </section>
+
+  <section id="galeria" class="claro">
+    <div class="contenedor">
+      <span class="etiqueta">Galería</span>
+      <h2>Galería</h2>
+      <div class="galeria" id="fotos"></div>
+    </div>
+  </section>
+
+  <section id="comprar">
+    <div class="contenedor angosto">
+      <span class="etiqueta">Comprar</span>
+      <h2>Haz tu pedido</h2>
+      <form id="form-pedido">
+        <label>Nombre completo <input name="nombre" required minlength="3" autocomplete="name"></label>
+        <label>Correo <input name="correo" type="email" required autocomplete="email"></label>
+        <label>Teléfono (opcional) <input name="telefono" type="tel" autocomplete="tel"></label>
+        <label>Dirección de envío <textarea name="direccion" rows="3" required minlength="10" autocomplete="street-address"></textarea></label>
+        <label>Cantidad de kits <input id="cantidad" name="cantidad" type="number" min="1" max="10" value="1" required></label>
+        <label>Forma de pago
+          <select name="pago" required>
+            <option value="Transferencia">Transferencia bancaria</option>
+            <option value="Contra entrega">Pago contra entrega</option>
+          </select>
+        </label>
+        <p class="precio">Total: <strong id="total">$349.00</strong></p>
+        <button class="btn" type="submit">Confirmar pedido</button>
+        <div id="resultado" role="status"></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="seguimiento" class="claro">
+    <div class="contenedor angosto">
+      <span class="etiqueta">Seguimiento</span>
+      <h2>Consulta tu pedido</h2>
+      <form id="form-seg">
+        <label>Folio <input name="folio" placeholder="BR-1A2B3C" required></label>
+        <label>Correo con el que pediste <input name="correo" type="email" required></label>
+        <button class="btn" type="submit">Consultar</button>
+        <div id="estado" role="status"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <p class="redes">
+      <a href="https://facebook.com/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+    </p>
+    <p>© 2026 Brote. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script src="/js/indicador.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

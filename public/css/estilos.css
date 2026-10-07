@@ -1,0 +1,136 @@
+/* Brote · sistema de diseño "OFF+BRAND.": arquitectura tipográfica sobre pergamino */
+:root{
+  --color-parchment:#e5e4e0;--color-ink:#1d1d1d;--color-paper:#fff;--color-ash:#bfbebe;--color-stone:#cdcdc9;
+  --gradient-iridescent-sphere:linear-gradient(255deg,rgb(250,203,14),rgb(240,107,168) 30%,rgb(120,186,230) 65%,rgb(255,255,255));
+  --font:'Ataero Retina OB Edition','Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --radius-ui:10px;--max:1400px;
+  /* rejilla de papel milimetrado para las tarjetas */
+  --papel:linear-gradient(var(--color-parchment) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,var(--color-parchment) 1px,transparent 1px) 0 0/28px 28px,var(--color-paper);
+}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{font-family:var(--font);background:var(--color-parchment);color:var(--color-ink);font-size:18px;font-weight:400;line-height:1.4;letter-spacing:.013em;text-align:left;-webkit-font-smoothing:antialiased}
+img,svg,iframe,video{max-width:100%}
+p{margin:15px 0;max-width:640px}
+strong{font-weight:400}
+a{color:var(--color-ink)}
+.contenedor{width:min(var(--max),100% - 60px);margin:auto}
+.angosto{width:min(680px,100% - 40px);margin-left:max(30px,calc((100% - var(--max))/2 + 30px))}
+
+/* Tipografía: una sola voz; titulares en mayúsculas, apilados en bloque */
+h1,h2,h3{font-weight:400;color:var(--color-ink);text-transform:uppercase}
+h1{font-size:clamp(2.6rem,8.2vw,103px);line-height:.8;letter-spacing:.013em}
+h2{font-size:clamp(2rem,4.6vw,46px);line-height:1;letter-spacing:.013em;margin-bottom:46px}
+h3{font-size:clamp(1.5rem,2.6vw,34px);line-height:1;letter-spacing:.013em;margin-bottom:19px}
+.etiqueta{display:block;font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:.05em;margin-bottom:30px}
+
+/* Barra superior mínima, sin sticky */
+header{position:relative;z-index:5}
+.barra{display:flex;justify-content:space-between;align-items:center;padding:30px 0}
+.logo{display:flex;align-items:center;gap:10px;color:var(--color-ink);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none}
+.logo svg{width:20px;height:20px}
+nav ul{display:flex;gap:30px;list-style:none;padding:0}
+nav a{color:var(--color-ink);text-decoration:none;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+nav a:hover{text-decoration:underline;text-underline-offset:4px}
+#menu{display:none;background:none;border:0;color:var(--color-ink);font-size:1.5rem;cursor:pointer}
+
+/* Secciones: pergamino continuo separado por líneas finas */
+section{padding:76px 0;border-top:1px solid var(--color-ash)}
+.hero{position:relative;overflow:hidden;min-height:calc(100vh - 82px);display:flex;align-items:center;border-top:0;padding:76px 0 119px}
+.hero .contenedor{position:relative;z-index:2}
+.hero h1{max-width:1100px}
+.hero p:first-of-type{margin:46px 0 30px;max-width:420px}
+
+/* Esfera iridiscente: único evento cromático, con anillos concéntricos */
+.esfera{position:absolute;z-index:1;right:-2%;top:50%;transform:translateY(-50%);width:min(600px,62vw);aspect-ratio:1;border-radius:50%;background:var(--gradient-iridescent-sphere)}
+.esfera::before,.esfera::after{content:"";position:absolute;border-radius:50%;border:1px solid var(--color-ash);pointer-events:none}
+.esfera::before{inset:-17%}
+.esfera::after{inset:-38%}
+
+/* Enlace fantasma: único estilo clicable; los botones de formulario son su variante con contorno */
+.btn{display:inline-block;background:none;color:var(--color-ink);padding:5px 0;border:0;border-radius:var(--radius-ui);font:inherit;font-size:15px;letter-spacing:.01em;cursor:pointer;text-decoration:none}
+.btn::after{content:" →"}
+.btn:hover{text-decoration:underline;text-underline-offset:5px}
+#instalar{margin-left:30px}
+form .btn{justify-self:start;border:1px solid var(--color-ink);padding:8px 19px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;transition:background .2s,color .2s}
+form .btn:hover{background:var(--color-ink);color:var(--color-parchment);text-decoration:none}
+
+/* Indicador de scroll */
+.scroll{position:fixed;right:30px;bottom:30px;z-index:6;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--color-ink);text-decoration:none;transition:opacity .3s}
+.scroll.oculto{opacity:0;pointer-events:none}
+
+/* Contenido: tarjetas blancas de esquina viva, sin sombra ni borde */
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:19px 76px;align-items:start}
+#proyecto{position:relative;overflow:hidden}
+#proyecto::before,#proyecto::after{content:"";position:absolute;border-radius:50%;border:1px solid var(--color-ash);aspect-ratio:1;pointer-events:none}
+#proyecto::before{width:560px;right:-180px;bottom:-300px}
+#proyecto::after{width:400px;right:-100px;bottom:-220px}
+#proyecto .contenedor{position:relative;z-index:1}
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:19px}
+.tarjeta{background:var(--papel);padding:30px;border-radius:0}
+.tarjeta h3{margin-bottom:15px}
+.tarjetas .tarjeta{min-height:220px}
+.tarjetas .tarjeta h3{font-size:clamp(1.4rem,2.2vw,34px)}
+.dos .tarjeta{margin-top:30px}
+.precio{display:flex;align-items:baseline;gap:19px;flex-wrap:wrap;margin-top:76px;max-width:none;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.precio strong{font-size:clamp(3rem,7vw,70px);line-height:.8;letter-spacing:.013em}
+
+.video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:0;border-radius:0;background:var(--color-paper)}
+/* Galería como rejilla de logos: celdas blancas separadas por líneas finas */
+.galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--color-ash);border:1px solid var(--color-ash)}
+.galeria div{aspect-ratio:1;overflow:hidden;display:grid;place-items:center;font-size:3.5rem;background:var(--color-paper)}
+.galeria img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Formularios */
+form{display:grid;gap:19px;background:var(--color-paper);padding:46px 30px;border-radius:0}
+label{display:grid;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+input,select,textarea{width:100%;padding:15px 19px;background:var(--color-parchment);color:var(--color-ink);border:1px solid var(--color-ash);border-radius:var(--radius-ui);font:inherit;font-size:15px;font-weight:400;text-transform:none;letter-spacing:.01em}
+input::placeholder{color:#8b8a8a}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--color-ink)}
+form .precio{margin-top:15px}
+form .precio strong{font-size:34px;line-height:1}
+.ok,.error{font-size:15px;max-width:none}
+.ok::before{content:"✓ "}
+.error{background:var(--color-ink);color:var(--color-parchment);padding:15px 19px;border-radius:var(--radius-ui)}
+.ok:empty,.error:empty{display:none}
+
+footer{border-top:1px solid var(--color-ash);padding:76px 0 119px;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+footer p{max-width:none}
+.redes{display:flex;gap:30px;flex-wrap:wrap}
+.redes a{text-decoration:none;font-weight:700}
+.redes a:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* Admin */
+.admin{padding:30px 0 119px}
+.admin h1{font-size:clamp(2.2rem,6vw,70px)}
+#msg{margin-bottom:19px}
+.tabla{overflow-x:auto;background:var(--color-paper);padding:30px}
+table{border-collapse:collapse;width:100%}
+th,td{padding:15px 19px 15px 0;border-bottom:1px solid var(--color-ash);text-align:left;font-size:15px;vertical-align:top}
+th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:0}
+td small{font-size:13px}
+td select{font-size:15px;padding:8px 12px;min-width:130px}
+
+@media(max-width:900px){
+  .dos{grid-template-columns:1fr;gap:19px}
+  .angosto{margin-left:auto}
+}
+@media(max-width:760px){
+  body{font-size:16px}
+  .contenedor{width:calc(100% - 40px)}
+  #menu{display:block}
+  nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--color-parchment);padding:12px 20px 30px;border-bottom:1px solid var(--color-ash)}
+  nav.abierto{display:block}
+  nav ul{flex-direction:column;gap:19px}
+  section{padding:46px 0}
+  .hero{padding:46px 0 76px;align-items:flex-end}
+  .esfera{width:96vw;right:-38%;top:34%}
+  .galeria{grid-template-columns:repeat(2,1fr)}
+  form{padding:30px 20px}
+  .tabla{padding:15px 20px}
+  footer{padding:46px 0 90px}
+  .scroll{right:20px;bottom:20px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scroll{transition:none}}
